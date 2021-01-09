@@ -30,7 +30,8 @@ class CsvFileTest {
         List<String> Actual = CsvFile.read(User.getFullFileLocation());
         List<String> Expected = new ArrayList<>();
         Expected.add("First_Name,Last_Name,User_Name,Password,User_Type");
-        Expected.add(User.getFirstName()+','+User.getLastName()+','+User.getUserName()+','+User.getPassword()+','+User.getType());
+        Expected.add("adel,mohamed,maro,ahmed,ADMIN");
+        Expected.add("Adel,Mohamed,Ahmed,A,ADMIN");
         assertLinesMatch(Expected, Actual);
     }
 
