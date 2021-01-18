@@ -12,17 +12,6 @@ public class CsvFile {
         csvFileController = new File(fullFileLocation);
         this.fullFileLocation = fullFileLocation;
     }
-    public void create() {
-        try {
-            csvFileController.createNewFile();
-        } catch (IOException ex) {
-            System.out.println(ex);
-        }
-    }
-
-    public boolean isExist() {
-        return csvFileController.exists() && !csvFileController.isDirectory();
-    }
 
     public static List<String> read(String fileLocation) {
         try {
@@ -42,11 +31,23 @@ public class CsvFile {
         }
     }
 
-    public void insert(String[] rows) {
+    public void create() {
+        try {
+            csvFileController.createNewFile();
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    public boolean isExist() {
+        return csvFileController.exists() && !csvFileController.isDirectory();
+    }
+
+    public void insert(List<String> rows) {
         try {
             FileWriter csvWriter = new FileWriter(csvFileController, true);
             for (String row : rows) {
-                csvWriter.append(row + "\n");
+                csvWriter.append(row).append("\n");
             }
             csvWriter.flush();
             csvWriter.close();

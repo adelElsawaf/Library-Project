@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.example.CsvFileTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-01-09T10:56:05" hostname="DESKTOP-B25ENQQ" time="0.022">
-  <properties/>
-  <testcase name="Testing Read Method" classname="org.example.CsvFileTest" time="0.022"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

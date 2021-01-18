@@ -1,7 +1,7 @@
-org/example/CsvFile.java
- org.example.CsvFile
 org/example/UserType.java
  org.example.UserType
+org/example/CsvFile.java
+ org.example.CsvFile
 org/example/User.java
  org.example.User
 org/example/main.java

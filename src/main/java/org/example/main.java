@@ -27,7 +27,7 @@ public class main {
                     User.Register(firstName, lastName, userName, password, userType);
                     break;
                 case "2":
-                    User.Display();
+                    User.loadDataFromFile().forEach(System.out::println);
                 default:
                     break;
             }
