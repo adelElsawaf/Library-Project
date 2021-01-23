@@ -2,6 +2,7 @@ package org.example;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CsvFile {
@@ -17,12 +18,13 @@ public class CsvFile {
         try {
             BufferedReader csvReader = new BufferedReader(new FileReader(fileLocation));
             List<String> rows = new ArrayList<>();
+            csvReader.readLine();
             while (true) {
                 String rowInfo = csvReader.readLine();
                 if (rowInfo == null) {
                     break;
                 }
-                rows.add(rowInfo);
+                rows.addAll(Arrays.asList(rowInfo.split(",")));
             }
             return rows;
         } catch (Exception e) {

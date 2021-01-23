@@ -7,6 +7,7 @@ public class main {
     public static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
+        User.loadDataFromFile();
         while (true) {
             String operation;
             System.out.println("To Register Please Press <1>");
@@ -27,7 +28,28 @@ public class main {
                     User.Register(firstName, lastName, userName, password, userType);
                     break;
                 case "2":
-                    User.loadDataFromFile().forEach(System.out::println);
+                    for (int i = 0; i < User.usersInfo.size(); i++) {
+                        System.out.println("First Name is : "+User.usersInfo.get(i).firstName);
+                        System.out.println("Last Name is : "+User.usersInfo.get(i).lastName);
+                        System.out.println("User Name is : "+User.usersInfo.get(i).userName);
+                        System.out.println("Password is "+User.usersInfo.get(i).Password);
+                        System.out.println("User Type is " +User.usersInfo.get(i).type);
+                    }
+                    break;
+                case "3":
+                        System.out.println("Please enter user name");
+                        String logInName = input.nextLine();
+                        System.out.println("Please enter your password");
+                        String logInPassword=input.nextLine();
+                        if (User.logIn(logInName,logInPassword))
+                        {
+                            System.out.println("Login Succeed");
+                        }
+                        else
+                        {
+                            System.out.println("Login failed");
+                        }
+                        break;
                 default:
                     break;
             }
