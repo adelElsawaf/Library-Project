@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class UserTest {
     @Test
-    void testRegister() throws IOException {
+    /*void testRegister() throws IOException {
         User.Register("A","A","A","A","ADMIN");
         List<String>actualRows= new ArrayList<>();
         actualRows.add("First_Name,Last_Name,User_Name,Password,User_Type");
@@ -28,11 +28,11 @@ class UserTest {
             expectedRows.add(rowInfo);
         }
         assertLinesMatch(expectedRows, actualRows);
-    }
+    }*/
     @Test
-    void testIsDataValid ()
+    /*void testIsDataValid ()
     {
         assertTrue(User.isDataValid("adel"));
-    }
+    }*/
 
 }

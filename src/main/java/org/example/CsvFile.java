@@ -4,14 +4,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 public class CsvFile {
-    public File csvFileController;
-    public String fullFileLocation;
+    private File csvFileController;
 
     public CsvFile(String fullFileLocation) {
         csvFileController = new File(fullFileLocation);
-        this.fullFileLocation = fullFileLocation;
     }
 
     public static List<String> read(String fileLocation) {
@@ -28,7 +25,6 @@ public class CsvFile {
             }
             return rows;
         } catch (Exception e) {
-            System.out.println(e);
             return new ArrayList<>();
         }
     }
@@ -37,7 +33,7 @@ public class CsvFile {
         try {
             csvFileController.createNewFile();
         } catch (IOException ex) {
-            System.out.println(ex);
+            throw new Error(ex);
         }
     }
 
@@ -45,17 +41,14 @@ public class CsvFile {
         return csvFileController.exists() && !csvFileController.isDirectory();
     }
 
-    public void insert(List<String> rows) {
+    public void insert(String rows) {
         try {
             FileWriter csvWriter = new FileWriter(csvFileController, true);
-            for (String row : rows) {
-                csvWriter.append(row).append("\n");
-            }
+            csvWriter.append(rows).append("\n");
             csvWriter.flush();
             csvWriter.close();
         } catch (Exception e) {
-            System.out.println(e);
-
+            throw new Error(e);
         }
 
     }

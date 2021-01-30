@@ -2,16 +2,19 @@ package org.example;
 
 import java.util.Scanner;
 
+import static org.example.User.*;
+
 public class main {
 
     public static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
-        User.loadDataFromFile();
+        loadDataFromFile();
         while (true) {
             String operation;
             System.out.println("To Register Please Press <1>");
             System.out.println("To Display all users Please Press <2>");
+            System.out.println("To Login Please press <3>");
             operation = input.nextLine();
             switch (operation) {
                 case "1":
@@ -25,31 +28,29 @@ public class main {
                     String password = input.nextLine();
                     System.out.println("Please enter the type of the user ");
                     String userType = input.nextLine();
-                    User.Register(firstName, lastName, userName, password, userType);
+                    Register(new User(firstName, lastName, userName, password, userType));
                     break;
                 case "2":
-                    for (int i = 0; i < User.usersInfo.size(); i++) {
-                        System.out.println("First Name is : "+User.usersInfo.get(i).firstName);
-                        System.out.println("Last Name is : "+User.usersInfo.get(i).lastName);
-                        System.out.println("User Name is : "+User.usersInfo.get(i).userName);
-                        System.out.println("Password is "+User.usersInfo.get(i).Password);
-                        System.out.println("User Type is " +User.usersInfo.get(i).type);
+                    for (User user : usersInfo) {
+                        System.out.println(user.getFirstName());
+                        System.out.println(user.getLastName());
+                        System.out.println(user.getUserName());
+                        System.out.println(user.getPassword());
+                        System.out.println(user.getType());
+
                     }
                     break;
                 case "3":
-                        System.out.println("Please enter user name");
-                        String logInName = input.nextLine();
-                        System.out.println("Please enter your password");
-                        String logInPassword=input.nextLine();
-                        if (User.logIn(logInName,logInPassword))
-                        {
-                            System.out.println("Login Succeed");
-                        }
-                        else
-                        {
-                            System.out.println("Login failed");
-                        }
-                        break;
+                    System.out.println("Please enter user name");
+                    String logInName = input.nextLine();
+                    System.out.println("Please enter your password");
+                    String logInPassword = input.nextLine();
+                    if (logIn(logInName, logInPassword)) {
+                        System.out.println("Login Succeed");
+                    } else {
+                        System.out.println("Login failed");
+                    }
+                    break;
                 default:
                     break;
             }
