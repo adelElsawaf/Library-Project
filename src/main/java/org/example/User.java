@@ -1,7 +1,11 @@
 package org.example;
 
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.ArrayList;
 import java.util.List;
+
+@RestController
 public class User {
     public static final String FULL_FILE_LOCATION = "CsvFiles/UsersData.csv";
     public static List<User> usersInfo = new ArrayList<>();
@@ -23,6 +27,20 @@ public class User {
             throw new Error("Can't insert null or Empty Data");
     }
 
+    public User() {
+    }
+
+    public static List<User> getAllUsers() {
+        return User.usersInfo;
+    }
+
+    public static User getUser(String userName) {
+        for (User user : usersInfo) {
+            if (user.userName.equals(userName))
+                return user;
+        }
+        return null;
+    }
     private static boolean isDataValid(String data) {
         return !data.equals("");
     }
@@ -43,12 +61,12 @@ public class User {
         }
     }
 
-    public static boolean logIn(String userName, String password) {
+    public static User logIn(String userName, String password) {
         for (User loggedInUser : usersInfo) {
             if (loggedInUser.userName.equals(userName) && loggedInUser.Password.equals(password))
-                return true;
+                return loggedInUser;
         }
-        return false;
+        return null;
     }
 
     public String getFirstName() {
