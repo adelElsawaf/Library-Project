@@ -1,16 +1,19 @@
 package org.example;
 
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@RestController
 public class User {
     public static final String FULL_FILE_LOCATION = "CsvFiles/UsersData.csv";
     public static List<User> usersInfo = new ArrayList<>();
-    public String firstName;
-    public String lastName;
-    public String userName;
-    public String Password;
-    public UserType type;
+    private String firstName;
+    private String lastName;
+    private String userName;
+    private String Password;
+    private UserType type;
 
     public User(String firstName, String lastName, String userName, String Password, String type) {
         if (isDataValid(firstName) && isDataValid(lastName) && isDataValid(userName) && isDataValid(Password)) {
@@ -24,38 +27,66 @@ public class User {
             throw new Error("Can't insert null or Empty Data");
     }
 
-    public static boolean isDataValid(String data) {
+    public User() {
+    }
+
+    public static List<User> getAllUsers() {
+        return User.usersInfo;
+    }
+
+    public static User getUser(String userName) {
+        for (User user : usersInfo) {
+            if (user.userName.equals(userName))
+                return user;
+        }
+        return null;
+    }
+    private static boolean isDataValid(String data) {
         return !data.equals("");
     }
 
-    public static void Register(String firstName, String lastName, String userName, String Password, String
-            type) {
-        User recent = new User(firstName, lastName, userName, Password, type);
+    public static void Register(User recent) {
         CsvFile usersFile = new CsvFile(FULL_FILE_LOCATION);
-        List<String> rowsData = new ArrayList<>();
         if (!usersFile.isExist()) {
             usersFile.create();
-            rowsData.add("First_Name,Last_Name,User_Name,Password,User_Type");
+            usersFile.insert("First_Name,Last_Name,User_Name,Password,User_Type");
         }
-        rowsData.add(recent.firstName + "," + recent.lastName + "," + recent.userName + "," + recent.Password + "," + recent.type);
-        usersFile.insert(rowsData);
-
+        usersFile.insert(recent.firstName + "," + recent.lastName + "," + recent.userName + "," + recent.Password + "," + recent.type);
     }
 
-    static void loadDataFromFile() {
-        List<String> Data = CsvFile.read(User.FULL_FILE_LOCATION);
+    public static void loadDataFromFile() {
+        List<String> Data = CsvFile.read(FULL_FILE_LOCATION);
         for (int dataIndex = 0; dataIndex < Data.size(); dataIndex += 5) {
-            User temp = new User(Data.get(dataIndex),Data.get(dataIndex+1),Data.get(dataIndex+2),Data.get(dataIndex+3),Data.get(dataIndex+4));
-            usersInfo.add(temp);
+            usersInfo.add(new User(Data.get(dataIndex), Data.get(dataIndex + 1), Data.get(dataIndex + 2), Data.get(dataIndex + 3), Data.get(dataIndex + 4)));
         }
     }
-    static boolean logIn(String userName , String password)
-    {
-        for (User user : usersInfo) {
-            if (user.userName.equals(userName) && user.Password.equals(password))
-                return true;
+
+    public static User logIn(String userName, String password) {
+        for (User loggedInUser : usersInfo) {
+            if (loggedInUser.userName.equals(userName) && loggedInUser.Password.equals(password))
+                return loggedInUser;
         }
-        return false;
+        return null;
+    }
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    public String getUserName() {
+        return this.userName;
+    }
+
+    public String getPassword() {
+        return this.Password;
+    }
+
+    public String getType() {
+        return this.type.toString();
     }
 }
 
